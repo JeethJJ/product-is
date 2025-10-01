@@ -33,19 +33,35 @@ def save_results(plan):
 def get_failed_tests(plan):
     test_fails = []
     test_warnings = []
-    test_others = []
-    test_log = json.loads(requests.get(url=conformance_suite_url + "/api/log?length=1000&search=" + plan['_id'], verify=False).content)
-    for test in test_log['data']:
-        if "result" in test and test['result'] == "FAILED":
-            test_fails.append('Test Name: ' + test['testName'] + '  id: ' + test['testId'])
-        elif "result" in test and test['result'] == "WARNING":
-            test_warnings.append('Test Name: ' + test['testName'] + '  id: ' + test['testId'])
+    test_passed = []
+
+    response = requests.get(url=f"{conformance_suite_url}/api/plan/exportjson/{plan['_id']}",verify=False)
+#     test_log = json.loads(requests.get(url=conformance_suite_url + "/api/log?length=1000&search=" + plan['_id'], verify=False).content)
+#     for test in test_log['data']:
+
+    for module in plan_export.get("modules", []):
+        result = module.get("result")
+        test_name = module.get("testName", "Unknown")
+        test_id = module.get("testId", "N/A")
+
+#         if "result" in test and test['result'] == "FAILED":
+#             test_fails.append('Test Name: ' + test['testName'] + '  id: ' + test['testId'])
+#         elif "result" in test and test['result'] == "WARNING":
+#             test_warnings.append('Test Name: ' + test['testName'] + '  id: ' + test['testId'])
+#         else:
+#             test_others.append('Test Name: ' + test['testName'] + '  id: ' + test['testId'])
+
+        if result == "FAILED":
+            test_fails.append(f"Test Name: {test_name}  id: {test_id}")
+        elif result == "WARNING":
+            test_warnings.append(f"Test Name: {test_name}  id: {test_id}")
         else:
-            test_others.append('Test Name: ' + test['testName'] + '  id: ' + test['testId'])
+            test_passed.append(f"Test Name: {test_name}  id: {test_id}")
+
     return {
         'fails': test_fails,
         'warnings': test_warnings,
-        'others': test_others
+        'others': test_passed
     }
 
 

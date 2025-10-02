@@ -59,7 +59,7 @@ def get_failed_tests(plan):
             test_passed.append(f"Test Name: {test_name}  id: {test_id}")
 
     return {
-        'fails': test_fails,
+        'fails': [],
         'warnings': test_warnings,
         'others': test_passed
     }

@@ -15,14 +15,14 @@
 #  limitations under the License.
 
 
-CONFORMANCE_SUITE_PATH=/Users/jihan/Documents/Repos/confirmance-suit/oidc/conformance-suite
+CONFORMANCE_SUITE_PATH=./conformance-suite
 PATH_TO_SCRIPTS=./product-is/oidc-conformance-tests
 IS_SUCCESSFUL=false
 IS_LOCAL=false
 
 if $IS_LOCAL; then
   PATH_TO_SCRIPTS=.
-  PRODUCT_IS_ZIP_PATH=/Users/jihan/Downloads/wso2is-7.2.0-beta2-SNAPSHOT.zip
+  PRODUCT_IS_ZIP_PATH=./wso2is-5.12.0-m7.zip
   echo "====================="
   echo "Identity Server Setup"
   echo "====================="
@@ -68,4 +68,3 @@ echo
 if $IS_LOCAL; then
   pkill -f wso2
 fi
-

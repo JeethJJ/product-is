@@ -58,6 +58,7 @@ def get_failed_tests(plan):
         else:
             test_passed.append(f"Test Name: {test_name}  id: {test_id}")
 
+    print(f"[DEBUG-failures] Plan {plan.get('planName')} -> "f"{len(test_fails)} fails, {len(test_warnings)} warnings, {len(test_passed)} passed")
     return {
         'fails': [],
         'warnings': test_warnings,
@@ -77,6 +78,7 @@ if __name__ == '__main__':
         if len(failed_tests_list['fails']) > 0 or len(failed_tests_list['warnings']) > 0:
             failed_plan_details[test_plan['planName']] = failed_tests_list
             if len(failed_tests_list['fails']) > 0:
+                print(f"[DEBUG-failures] Actual failures : {len(failed_tests_list['fails']))} fails")
                 contains_fails = True
 
     if failed_plan_details:

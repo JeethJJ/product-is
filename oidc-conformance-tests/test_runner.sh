@@ -68,3 +68,4 @@ echo
 if $IS_LOCAL; then
   pkill -f wso2
 fi
+
